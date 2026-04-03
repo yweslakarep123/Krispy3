@@ -1,0 +1,7 @@
+- task=franka_kitchen
+- training.debug=FALSE
+- training.seed=0
+- training.device=cuda
+- exp_name=franka_kitchen-flowpolicy_kitchen-0001
+- logging.mode=online
+- checkpoint.save_ckpt=True

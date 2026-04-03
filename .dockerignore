@@ -1,0 +1,10 @@
+data/
+*.zarr
+__pycache__
+*.pyc
+.git
+*.mp4
+*.pdf
+results/
+.DS_Store
+*.egg-info
