@@ -1,0 +1,4 @@
+[2026-04-05 11:28:04,886][flow_policy_3d.model.flow.conditional_unet1d][INFO] - number of parameters: 3.054972e+08
+[2026-04-05 11:28:11,289][absl][INFO] - MUJOCO_GL=egl, attempting to import specified OpenGL backend.
+[2026-04-05 11:28:11,313][OpenGL.acceleratesupport][INFO] - No OpenGL_accelerate module loaded: No module named 'OpenGL_accelerate'
+[2026-04-05 11:28:11,373][absl][INFO] - MuJoCo library version is: 2.3.7

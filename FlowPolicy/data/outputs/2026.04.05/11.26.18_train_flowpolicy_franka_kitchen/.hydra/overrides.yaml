@@ -1,0 +1,2 @@
+- task.dataset.zarr_path=/home/dafa/Documents/FlowPolicy/data/franka_kitchen_expert.zarr
+- training.device=cuda:0

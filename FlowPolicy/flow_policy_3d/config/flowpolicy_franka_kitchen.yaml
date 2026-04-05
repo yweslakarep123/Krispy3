@@ -1,5 +1,6 @@
 # Franka Kitchen: task + policy lebih kuat + augmentasi training.
 # Jalankan dari folder FlowPolicy/: python train.py --config-name=flowpolicy_franka_kitchen
+# GPU ~8 GB sering OOM → pakai flowpolicy_franka_kitchen_8gb (batch kecil + model lebih ramping).
 defaults:
   - flowpolicy
   - override /task: franka_kitchen

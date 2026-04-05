@@ -1,0 +1,32 @@
+# Preset VRAM ~8 GB (laptop RTX 4060 Mobile, dll.):
+# - UNet lebih kecil (mirip flowpolicy bawaan)
+# - batch kecil + gradient accumulation ≈ batch efektif 128
+# - EMA dimatikan (hemat satu salinan model penuh); aktifkan lagi jika VRAM 12 GB+
+#
+# python train.py --config-name=flowpolicy_franka_kitchen_8gb \
+#   task.dataset.zarr_path=... training.device=cuda:0
+defaults:
+  - flowpolicy_franka_kitchen
+
+dataloader:
+  batch_size: 8
+  num_workers: 4
+  pin_memory: true
+
+val_dataloader:
+  batch_size: 8
+  num_workers: 4
+  pin_memory: true
+
+training:
+  gradient_accumulate_every: 16
+  use_ema: false
+
+policy:
+  condition_type: cross_attention_film
+  diffusion_step_embed_dim: 128
+  down_dims:
+    - 512
+    - 1024
+    - 2048
+  encoder_output_dim: 64
