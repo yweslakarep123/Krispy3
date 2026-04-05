@@ -1,55 +1,20 @@
-task:
-  name: franka_kitchen
-  shape_meta:
-    obs:
-      point_cloud:
-        shape:
-        - 512
-        - 3
-        type: point_cloud
-      agent_pos:
-        shape:
-        - 18
-        type: low_dim
-    action:
-      shape:
-      - 9
-  env_runner:
-    _target_: flow_policy_3d.env_runner.franka_kitchen_runner.FrankaKitchenRunner
-    eval_episodes: 20
-    max_steps: 280
-    n_obs_steps: ${n_obs_steps}
-    n_action_steps: ${n_action_steps}
-    fps: 10
-    device: ${training.device}
-    use_point_crop: ${policy.use_point_crop}
-    num_points: 512
-    env_name: kitchen-complete-v0
-  dataset:
-    _target_: flow_policy_3d.dataset.franka_kitchen_dataset.FrankaKitchenDataset
-    zarr_path: /home/dafa/Documents/FlowPolicy/data/franka_kitchen_expert.zarr
-    horizon: ${horizon}
-    pad_before: ${eval:'${n_obs_steps}-1'}
-    pad_after: ${eval:'${n_action_steps}-1'}
-    seed: 42
-    val_ratio: 0.02
-    max_train_episodes: null
-    use_velocity: true
-    augment: false
-    pc_jitter_std: 0.002
-    action_noise_std: 0.01
-    pc_dropout_prob: 0.05
+defaults:
+  - task: franka_kitchen
+
 name: train_flowpolicy_kitchen
+
 task_name: ${task.name}
 shape_meta: ${task.shape_meta}
-exp_name: franka_kitchen-flowpolicy_kitchen-0001
+exp_name: "debug"
+
 horizon: 8
 n_obs_steps: 2
 n_action_steps: 4
 n_latency_steps: 0
 dataset_obs_steps: ${n_obs_steps}
 keypoint_visible_rate: 1.0
-obs_as_global_cond: true
+obs_as_global_cond: True
+
 policy:
   _target_: flow_policy_3d.policy.flowpolicy.FlowPolicy
   use_point_crop: true
@@ -57,6 +22,7 @@ policy:
   use_down_condition: true
   use_mid_condition: true
   use_up_condition: true
+
   diffusion_step_embed_dim: 128
   down_dims:
   - 256
@@ -73,8 +39,10 @@ policy:
   n_obs_steps: ${n_obs_steps}
   obs_as_global_cond: true
   shape_meta: ${shape_meta}
+
   use_pc_color: false
-  pointnet_type: mlp
+  pointnet_type: "mlp"
+
   Conditional_ConsistencyFM:
     eps: 0.01
     num_segments: 2
@@ -82,12 +50,14 @@ policy:
     delta: 0.05
     alpha: 0.0001
     num_inference_step: 1
+
   pointcloud_encoder_cfg:
     in_channels: 3
     out_channels: ${policy.encoder_output_dim}
     use_layernorm: true
     final_norm: layernorm
     normal_channel: false
+
 ema:
   _target_: flow_policy_3d.model.flow.ema_model.EMAModel
   update_after_step: 0
@@ -95,36 +65,38 @@ ema:
   power: 0.75
   min_value: 0.0
   max_value: 0.9999
+
 dataloader:
   batch_size: 128
   num_workers: 8
-  shuffle: true
-  pin_memory: true
-  persistent_workers: false
+  shuffle: True
+  pin_memory: True
+  persistent_workers: False
+
 val_dataloader:
   batch_size: 128
   num_workers: 8
-  shuffle: false
-  pin_memory: true
-  persistent_workers: false
+  shuffle: False
+  pin_memory: True
+  persistent_workers: False
+
 optimizer:
   _target_: torch.optim.AdamW
-  lr: 0.0001
-  betas:
-  - 0.95
-  - 0.999
-  eps: 1.0e-08
-  weight_decay: 1.0e-06
+  lr: 1.0e-4
+  betas: [0.95, 0.999]
+  eps: 1.0e-8
+  weight_decay: 1.0e-6
+
 training:
-  device: cuda
-  seed: 0
-  debug: false
-  resume: true
+  device: "cuda:0"
+  seed: 42
+  debug: False
+  resume: True
   lr_scheduler: cosine
   lr_warmup_steps: 500
   num_epochs: 3000
   gradient_accumulate_every: 1
-  use_ema: true
+  use_ema: True
   rollout_every: 200
   checkpoint_every: 200
   val_every: 1
@@ -134,6 +106,7 @@ training:
   tqdm_interval_sec: 1.0
   max_grad_norm: 1.0
   ema_decay: 0.95
+
 logging:
   group: ${exp_name}
   id: null
@@ -144,15 +117,26 @@ logging:
   tags:
   - flowpolicy
   - franka_kitchen
+
 checkpoint:
-  save_ckpt: true
+  save_ckpt: False
   topk:
     monitor_key: test_mean_score
     mode: max
     k: 3
-    format_str: epoch={epoch:04d}-test_mean_score={test_mean_score:.3f}.ckpt
-  save_last_ckpt: true
-  save_last_snapshot: false
+    format_str: 'epoch={epoch:04d}-test_mean_score={test_mean_score:.3f}.ckpt'
+  save_last_ckpt: True
+  save_last_snapshot: False
+
 multi_run:
   run_dir: data/outputs/${now:%Y.%m.%d}/${now:%H.%M.%S}_${name}_${task_name}
   wandb_name_base: ${now:%Y.%m.%d-%H.%M.%S}_${name}_${task_name}
+
+hydra:
+  job:
+    override_dirname: ${name}
+  run:
+    dir: data/outputs/${now:%Y.%m.%d}/${now:%H.%M.%S}_${name}_${task_name}
+  sweep:
+    dir: data/outputs/${now:%Y.%m.%d}/${now:%H.%M.%S}_${name}_${task_name}
+    subdir: ${hydra.job.num}
