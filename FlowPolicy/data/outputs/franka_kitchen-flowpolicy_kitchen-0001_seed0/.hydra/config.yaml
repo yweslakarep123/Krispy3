@@ -79,8 +79,8 @@ policy:
     eps: 0.01
     num_segments: 2
     boundary: 1
-    delta: 0.05
-    alpha: 0.0001
+    delta: 0.01
+    alpha: 1.0e-05
     num_inference_step: 1
   pointcloud_encoder_cfg:
     in_channels: 3

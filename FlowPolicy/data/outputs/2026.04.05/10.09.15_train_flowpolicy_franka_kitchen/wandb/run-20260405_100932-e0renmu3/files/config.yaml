@@ -1,0 +1,266 @@
+_wandb:
+    value:
+        cli_version: 0.24.2
+        e:
+            q4kaz4t1dehee5uuibzdizigtqmck3ti:
+                args:
+                    - --config-name=flowpolicy_franka_kitchen
+                    - task.dataset.zarr_path=/home/dafa/Documents/FlowPolicy/data/franka_kitchen_expert.zarr
+                    - training.device=cuda:0
+                codePath: FlowPolicy/train.py
+                codePathLocal: train.py
+                cpu_count: 4
+                cpu_count_logical: 8
+                cudaVersion: "13.0"
+                disk:
+                    /:
+                        total: "215815376896"
+                        used: "82302545920"
+                email: ahmaddaffaabiyyudl@gmail.com
+                executable: /home/dafa/miniconda3/envs/flowpolicy/bin/python
+                git:
+                    commit: 900c49649bbd047f2084cf1e2efaa6e265abd9ae
+                    remote: https://github.com/yweslakarep123/Krispy3.git
+                gpu: NVIDIA GeForce GTX 1080 with Max-Q Design
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Pascal
+                      cudaCores: 2560
+                      memoryTotal: "8589934592"
+                      name: NVIDIA GeForce GTX 1080 with Max-Q Design
+                      uuid: GPU-5de3f3c0-f940-e9b2-4e2f-a23e57cf7e6d
+                host: dafa-GX501VIK
+                memory:
+                    total: "25151926272"
+                os: Linux-5.15.0-139-generic-x86_64-with-glibc2.17
+                program: train.py
+                python: CPython 3.8.20
+                root: /home/dafa/Documents/FlowPolicy/FlowPolicy/data/outputs/2026.04.05/10.09.15_train_flowpolicy_franka_kitchen
+                startedAt: "2026-04-05T03:09:32.749110Z"
+                writerId: q4kaz4t1dehee5uuibzdizigtqmck3ti
+        m: []
+        python_version: 3.8.20
+        t:
+            "1":
+                - 1
+                - 5
+                - 41
+                - 49
+                - 50
+                - 53
+                - 83
+            "2":
+                - 1
+                - 5
+                - 41
+                - 49
+                - 50
+                - 53
+                - 83
+            "3":
+                - 13
+                - 15
+                - 16
+            "4": 3.8.20
+            "5": 0.24.2
+            "12": 0.24.2
+            "13": linux-x86_64
+checkpoint:
+    value:
+        save_ckpt: false
+        save_last_ckpt: true
+        save_last_snapshot: false
+        topk:
+            format_str: epoch={epoch:04d}-test_mean_score={test_mean_score:.3f}.ckpt
+            k: 1
+            mode: max
+            monitor_key: test_mean_score
+dataloader:
+    value:
+        batch_size: 128
+        num_workers: 8
+        persistent_workers: false
+        pin_memory: true
+        shuffle: true
+dataset_obs_steps:
+    value: 2
+ema:
+    value:
+        _target_: flow_policy_3d.model.flow.ema_model.EMAModel
+        inv_gamma: 1
+        max_value: 0.9999
+        min_value: 0
+        power: 0.75
+        update_after_step: 0
+exp_name:
+    value: debug
+horizon:
+    value: 4
+keypoint_visible_rate:
+    value: 1
+logging:
+    value:
+        group: debug
+        id: null
+        mode: online
+        name: debug_42
+        project: flowpolicy
+        resume: true
+        tags:
+            - flowpolicy
+multi_run:
+    value:
+        run_dir: data/outputs/2026.04.05/10.09.15_train_flowpolicy_franka_kitchen
+        wandb_name_base: 2026.04.05-10.09.31_train_flowpolicy_franka_kitchen
+n_action_steps:
+    value: 4
+n_latency_steps:
+    value: 0
+n_obs_steps:
+    value: 2
+name:
+    value: train_flowpolicy
+obs_as_global_cond:
+    value: true
+optimizer:
+    value:
+        _target_: torch.optim.AdamW
+        betas:
+            - 0.95
+            - 0.999
+        eps: 1e-08
+        lr: 0.0001
+        weight_decay: 1e-06
+output_dir:
+    value: /home/dafa/Documents/FlowPolicy/FlowPolicy/data/outputs/2026.04.05/10.09.15_train_flowpolicy_franka_kitchen
+policy:
+    value:
+        _target_: flow_policy_3d.policy.flowpolicy.FlowPolicy
+        condition_type: cross_attention_film
+        crop_shape:
+            - 84
+            - 84
+        diffusion_step_embed_dim: 256
+        down_dims:
+            - 768
+            - 1536
+            - 3072
+        encoder_output_dim: 128
+        horizon: 4
+        kernel_size: 5
+        n_action_steps: 4
+        n_groups: 8
+        n_obs_steps: 2
+        obs_as_global_cond: true
+        pointcloud_encoder_cfg:
+            final_norm: layernorm
+            in_channels: 3
+            normal_channel: false
+            out_channels: 128
+            use_layernorm: true
+        pointnet_type: mlp
+        shape_meta:
+            action:
+                shape:
+                    - 9
+            obs:
+                agent_pos:
+                    shape:
+                        - 9
+                    type: low_dim
+                point_cloud:
+                    shape:
+                        - 512
+                        - 3
+                    type: point_cloud
+        use_down_condition: true
+        use_mid_condition: true
+        use_pc_color: false
+        use_point_crop: true
+        use_up_condition: true
+shape_meta:
+    value:
+        action:
+            shape:
+                - 9
+        obs:
+            agent_pos:
+                shape:
+                    - 9
+                type: low_dim
+            point_cloud:
+                shape:
+                    - 512
+                    - 3
+                type: point_cloud
+task:
+    value:
+        dataset:
+            _target_: flow_policy_3d.dataset.franka_kitchen_dataset.FrankaKitchenDataset
+            agent_pos_noise_std: 0.01
+            augment: true
+            horizon: 4
+            max_train_episodes: null
+            pad_after: 3
+            pad_before: 1
+            pc_noise_std: 0.003
+            pc_point_dropout_ratio: 0.05
+            seed: 42
+            val_ratio: 0.02
+            zarr_path: /home/dafa/Documents/FlowPolicy/data/franka_kitchen_expert.zarr
+        env_runner:
+            _target_: flow_policy_3d.env_runner.franka_kitchen_runner.FrankaKitchenRunner
+            device: cuda:0
+            env_name: kitchen-complete-v0
+            eval_episodes: 20
+            fps: 10
+            max_steps: 280
+            n_action_steps: 4
+            n_obs_steps: 2
+            num_points: 512
+            use_point_crop: true
+        name: franka_kitchen
+        shape_meta:
+            action:
+                shape:
+                    - 9
+            obs:
+                agent_pos:
+                    shape:
+                        - 9
+                    type: low_dim
+                point_cloud:
+                    shape:
+                        - 512
+                        - 3
+                    type: point_cloud
+        task_name: train_flowpolicy
+task_name:
+    value: franka_kitchen
+training:
+    value:
+        checkpoint_every: 200
+        debug: false
+        device: cuda:0
+        ema_decay: 0.95
+        gradient_accumulate_every: 1
+        lr_scheduler: cosine
+        lr_warmup_steps: 500
+        max_grad_norm: 1
+        max_train_steps: null
+        max_val_steps: null
+        num_epochs: 3000
+        resume: true
+        rollout_every: 200
+        sample_every: 5
+        seed: 42
+        tqdm_interval_sec: 1
+        use_ema: true
+        val_every: 1
+val_dataloader:
+    value:
+        batch_size: 128
+        num_workers: 8
+        persistent_workers: false
+        pin_memory: true
+        shuffle: false

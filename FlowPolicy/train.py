@@ -109,21 +109,6 @@ class TrainFlowPolicyWorkspace:
         train_dataloader = DataLoader(dataset, **cfg.dataloader)
         normalizer = dataset.get_normalizer()
 
-        # #region agent log
-        try:
-            import json as _json, time as _time
-            _logpath = "/home/dafa/Documents/FlowPolicy/.cursor/debug.log"
-            _rb = dataset.replay_buffer
-            _diag = {"n_episodes": int(_rb.n_episodes), "total_steps": int(_rb['action'].shape[0]), "action_shape": list(_rb['action'].shape), "state_shape": list(_rb['state'].shape), "pc_shape": list(_rb['point_cloud'].shape), "action_min": float(_rb['action'].min()), "action_max": float(_rb['action'].max()), "action_mean": float(_rb['action'].mean()), "state_min": float(_rb['state'].min()), "state_max": float(_rb['state'].max()), "augment": getattr(dataset, 'augment', 'N/A'), "sampler_len": len(dataset)}
-            with open(_logpath, "a") as _f: _f.write(_json.dumps({"id": "log_data_diag", "timestamp": int(_time.time()*1000), "location": "train.py:dataset_init", "message": "dataset_diagnostics", "data": _diag, "hypothesisId": "H2_H4"}) + "\n")
-            _act_norm = normalizer['action']
-            _nact = _act_norm.normalize(torch.from_numpy(_rb['action'][:100].astype(np.float32)))
-            _norm_diag = {"normalized_action_min": float(_nact.min()), "normalized_action_max": float(_nact.max()), "normalized_action_mean": float(_nact.mean()), "normalized_action_std": float(_nact.std())}
-            with open(_logpath, "a") as _f: _f.write(_json.dumps({"id": "log_norm_diag", "timestamp": int(_time.time()*1000), "location": "train.py:normalizer", "message": "normalizer_diagnostics", "data": _norm_diag, "hypothesisId": "H3"}) + "\n")
-        except Exception as _e:
-            with open(_logpath, "a") as _f: _f.write(_json.dumps({"id": "log_err", "timestamp": int(_time.time()*1000), "location": "train.py:diag", "message": "diag_error", "data": {"error": str(_e)}}) + "\n")
-        # #endregion
-
         # configure validation dataset
         val_dataset = dataset.get_validation_dataset()
         val_dataloader = DataLoader(val_dataset, **cfg.val_dataloader)

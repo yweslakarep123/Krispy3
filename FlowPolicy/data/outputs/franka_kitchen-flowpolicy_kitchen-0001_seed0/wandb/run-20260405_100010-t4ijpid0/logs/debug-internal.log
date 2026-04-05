@@ -1,0 +1,19 @@
+{"time":"2026-04-05T10:00:11.326863872+07:00","level":"INFO","msg":"stream: starting","core version":"0.24.2"}
+{"time":"2026-04-05T10:00:11.856357158+07:00","level":"INFO","msg":"stream: created new stream","id":"t4ijpid0"}
+{"time":"2026-04-05T10:00:11.856472422+07:00","level":"INFO","msg":"handler: started","stream_id":"t4ijpid0"}
+{"time":"2026-04-05T10:00:11.856704184+07:00","level":"INFO","msg":"stream: started","id":"t4ijpid0"}
+{"time":"2026-04-05T10:00:11.856727041+07:00","level":"INFO","msg":"writer: started","stream_id":"t4ijpid0"}
+{"time":"2026-04-05T10:00:11.856757005+07:00","level":"INFO","msg":"sender: started","stream_id":"t4ijpid0"}
+{"time":"2026-04-05T10:00:16.708839033+07:00","level":"WARN","msg":"handler: ignoring partial history record","step":0,"current":31}
+{"time":"2026-04-05T10:00:17.977672048+07:00","level":"WARN","msg":"handler: ignoring partial history record","step":1,"current":31}
+{"time":"2026-04-05T10:00:19.252071221+07:00","level":"WARN","msg":"handler: ignoring partial history record","step":2,"current":31}
+{"time":"2026-04-05T10:00:20.526921442+07:00","level":"WARN","msg":"handler: ignoring partial history record","step":3,"current":31}
+{"time":"2026-04-05T10:00:21.791794291+07:00","level":"WARN","msg":"handler: ignoring partial history record","step":4,"current":31}
+{"time":"2026-04-05T10:00:23.06226116+07:00","level":"WARN","msg":"handler: ignoring partial history record","step":5,"current":31}
+{"time":"2026-04-05T10:00:24.340445993+07:00","level":"WARN","msg":"handler: ignoring partial history record","step":6,"current":31}
+{"time":"2026-04-05T10:00:25.618281989+07:00","level":"WARN","msg":"handler: ignoring partial history record","step":7,"current":31}
+{"time":"2026-04-05T10:00:26.913284584+07:00","level":"INFO","msg":"stream: closing","id":"t4ijpid0"}
+{"time":"2026-04-05T10:00:27.67920542+07:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2026-04-05T10:00:28.739465962+07:00","level":"INFO","msg":"handler: closed","stream_id":"t4ijpid0"}
+{"time":"2026-04-05T10:00:28.73966511+07:00","level":"INFO","msg":"sender: closed","stream_id":"t4ijpid0"}
+{"time":"2026-04-05T10:00:28.739697756+07:00","level":"INFO","msg":"stream: closed","id":"t4ijpid0"}

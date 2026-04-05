@@ -1,12 +1,14 @@
 name: franka_kitchen
 
+task_name: ${name}
+
 shape_meta: &shape_meta
   obs:
     point_cloud:
       shape: [512, 3]
       type: point_cloud
     agent_pos:
-      shape: [18]
+      shape: [9]
       type: low_dim
   action:
     shape: [9]
@@ -25,6 +27,7 @@ env_runner:
 
 dataset:
   _target_: flow_policy_3d.dataset.franka_kitchen_dataset.FrankaKitchenDataset
+  # Set absolute path on each machine, e.g. vast.ai: task.dataset.zarr_path=/workspace/FlowPolicy/data/...
   zarr_path: /home/dafa/Documents/FlowPolicy/data/franka_kitchen_expert.zarr
   horizon: ${horizon}
   pad_before: ${eval:'${n_obs_steps}-1'}
@@ -32,8 +35,7 @@ dataset:
   seed: 42
   val_ratio: 0.02
   max_train_episodes: null
-  use_velocity: true
   augment: false
-  pc_jitter_std: 0.002
-  action_noise_std: 0.01
-  pc_dropout_prob: 0.05
+  pc_noise_std: 0.0
+  pc_point_dropout_ratio: 0.0
+  agent_pos_noise_std: 0.0

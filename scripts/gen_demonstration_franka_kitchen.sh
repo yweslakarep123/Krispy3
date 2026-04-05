@@ -1,18 +1,18 @@
-# Generate Franka Kitchen demonstrations from all D4RL kitchen datasets.
-# Combines complete + partial + mixed for maximum data diversity.
-#
+# Generate Franka Kitchen demonstrations from D4RL dataset
 # Usage: bash scripts/gen_demonstration_franka_kitchen.sh
+#
+# This script loads the D4RL kitchen-complete-v0 dataset,
+# re-renders point clouds from MuJoCo states, and saves
+# to zarr format for FlowPolicy training.
 
 ROOT_DIR="data/"
 
 export CUDA_VISIBLE_DEVICES=0
 export MUJOCO_GL=egl
-export D4RL_SUPPRESS_IMPORT_ERROR=1
 
 python scripts/gen_demonstration_franka_kitchen.py \
-    --env_names kitchen-complete-v0 kitchen-partial-v0 kitchen-mixed-v0 \
+    --env_name kitchen-complete-v0 \
     --root_dir ${ROOT_DIR} \
     --num_points 512 \
     --image_size 128 \
-    --use_point_crop \
-    --output_name franka_kitchen_expert.zarr
+    --use_point_crop

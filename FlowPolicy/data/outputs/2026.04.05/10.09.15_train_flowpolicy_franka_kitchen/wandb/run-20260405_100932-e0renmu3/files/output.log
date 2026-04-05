@@ -1,0 +1,18 @@
+[34m[1mwandb[0m: Detected [huggingface_hub.inference] in use.
+[34m[1mwandb[0m: Use W&B Weave for improved LLM call tracing. Install Weave with `pip install weave` then add `import weave` to the top of your script.
+[34m[1mwandb[0m: For more information, check out the docs at: https://weave-docs.wandb.ai/
+Error executing job with overrides: ['task.dataset.zarr_path=/home/dafa/Documents/FlowPolicy/data/franka_kitchen_expert.zarr', 'training.device=cuda:0']
+Traceback (most recent call last):
+  File "train.py", line 508, in main
+    workspace.run()
+  File "train.py", line 200, in run
+    raw_loss, loss_dict = self.model.compute_loss(batch)
+  File "/home/dafa/Documents/FlowPolicy/FlowPolicy/flow_policy_3d/policy/flowpolicy.py", line 319, in compute_loss
+    vt = self.model(xt, t*99, cond=local_cond, global_cond=global_cond)
+  File "/home/dafa/miniconda3/envs/flowpolicy/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/dafa/Documents/FlowPolicy/FlowPolicy/flow_policy_3d/model/flow/conditional_unet1d.py", line 298, in forward
+    global_feature = torch.cat([timestep_embed, global_cond], axis=-1)
+RuntimeError: Tensors must have same number of dimensions: got 2 and 3
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

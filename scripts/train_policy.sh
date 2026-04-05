@@ -1,6 +1,7 @@
-# Examples:
+# Dari akar repo (folder yang berisi scripts/ dan FlowPolicy/):
 # bash scripts/train_policy.sh flowpolicy adroit_hammer 111 0 0
-# bash scripts/train_policy.sh flowpolicy metaworld_door-close 111 0 0
+# bash scripts/train_policy.sh flowpolicy_franka_kitchen franka_kitchen 0001 0 0 \
+#   task.dataset.zarr_path=/home/USER/Documents/FlowPolicy/data/franka_kitchen_expert.zarr
 
 
 DEBUG=FALSE 
@@ -44,7 +45,8 @@ python train.py --config-name=${config_name}.yaml \
                             training.device="cuda"\
                             exp_name=${exp_name} \
                             logging.mode=${wandb_mode} \
-                            checkpoint.save_ckpt=${save_ckpt}
+                            checkpoint.save_ckpt=${save_ckpt} \
+                            "$@"
 
 
 

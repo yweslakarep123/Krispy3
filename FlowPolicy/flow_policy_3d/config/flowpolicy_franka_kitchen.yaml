@@ -1,0 +1,21 @@
+# Franka Kitchen: task + policy lebih kuat + augmentasi training.
+# Jalankan dari folder FlowPolicy/: python train.py --config-name=flowpolicy_franka_kitchen
+defaults:
+  - flowpolicy
+  - override /task: franka_kitchen
+
+policy:
+  condition_type: cross_attention_film
+  diffusion_step_embed_dim: 256
+  down_dims:
+    - 768
+    - 1536
+    - 3072
+  encoder_output_dim: 128
+
+task:
+  dataset:
+    augment: true
+    pc_noise_std: 0.003
+    pc_point_dropout_ratio: 0.05
+    agent_pos_noise_std: 0.01
